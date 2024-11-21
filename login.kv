@@ -1,0 +1,487 @@
+ScreenManagement:
+    LoginScreen:
+        name: "Bienvenido"
+    RegisterScreen:
+        name: "register"
+    MenuScreen:
+        name: "menu"
+    ProfileScreen:
+        name: "profile"
+    AlarmsScreen:
+        name: "alarms"
+    AddAlarmScreen:
+        name: "addAlarm"
+    TurnsScreen:
+        name: "turns"
+    AddTurnScreen:
+        name: "addTurn"
+    MyDoctorScreen:
+        name: "mydoctor"
+    AddDoctorScreen:
+        name: "addDoctor"
+
+<LoginScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "¡Bienvenido!"
+            color: 0, 0, 0, 1  # Negro
+            font_size: 40
+        TextInput:
+            id: username
+            font_size: 20
+            hint_text: "Usuario"
+        TextInput:
+            id: password
+            font_size: 20
+            hint_text: "Contraseña"
+            password: True
+        Button:
+            text: "Iniciar"
+            font_size: 20
+            background_color: 0, 0, 1, 1  # azul
+            background_normal: ''  
+            color: 1, 1, 1, 1 #blanco
+            on_press: root.verify_credentials(username.text, password.text)
+        Label:
+            id: login_message
+            text: ""
+        Button:
+            text: "Registrar"
+            font_size: 20
+            background_color: 0, 0, 1, 1 #azul
+            background_normal: ''  
+            color: 1, 1, 1, 1  # negro
+            on_press: app.root.current = "register"
+
+<RegisterScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.678, 0.847, 0.902, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Registro"
+            color: 0, 0, 0, 1  # Negro
+            font_size: 40
+        TextInput:
+            id: reg_username
+            font_size: 20
+            hint_text: "Usuario"
+        TextInput:
+            id: reg_password
+            font_size: 20
+            hint_text: "Contraseña"
+            password: True
+        TextInput:
+            id: reg_email
+            font_size: 20
+            hint_text: "Correo Electrónico"
+        Button:
+            text: "Registrar"
+            font_size: 20
+            background_color: 0, 0, 1, 1 #azul
+            background_normal: ''  
+            color: 1, 1, 1, 1  
+            on_press: root.register_user(reg_username.text, reg_password.text, reg_email.text)
+        Label:
+            id: register_message
+            text: ""
+        Button:
+            text: "Volver"
+            font_size: 20
+            background_color: 0, 0, 1, 1 #azul
+            background_normal: ''  
+            color: 1, 1, 1, 1  # negro
+            on_press: app.root.current = "Bienvenido"
+
+<MenuScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 200, 300
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            padding: [10, 50, 10, 10]
+            spacing: 40
+            Button:
+                text: "Perfil"
+                font_size: 20
+                background_color: 0, 0, 1, 1
+                background_normal: ''  
+                color: 1, 1, 1, 1  # Negro
+                size_hint: None, None
+                size: 200, 50
+                on_press: app.root.current = "profile"
+                
+            Button:
+                text: "Alarmas"
+                font_size: 20
+                background_color: 0, 0, 1, 1
+                background_normal: ''  
+                color: 1, 1, 1, 1  # Negro
+                size_hint: None, None
+                size: 200, 50
+                on_press: app.root.current = "alarms"
+            Button:
+                text: "Turnos"
+                font_size: 20
+                background_color: 0, 0, 1, 1
+                background_normal: ''  
+                color: 1, 1, 1, 1  # Negro
+                size_hint: None, None
+                size: 200, 50
+                on_press: app.root.current = "turns"
+            Button:
+                text: "Mi Médico"
+                font_size: 20
+                background_color: 0, 0, 1, 1
+                background_normal: ''  
+                color: 1, 1, 1, 1  # Negro
+                size_hint: None, None
+                size: 200, 50
+                on_press: app.root.current = "mydoctor"
+
+<ProfileScreen>:
+    on_enter: root.load_profile()
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Perfil"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        TextInput:
+            id: nombre
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Nombre"
+            disabled: True
+        TextInput:
+            id: apellido
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Apellido"
+            disabled: True
+        TextInput:
+            id: direccion
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Dirección"
+            disabled: True
+        TextInput:
+            id: contactos
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Contactos de Emergencia"
+            disabled: True
+        BoxLayout:
+            size_hint: None, None
+            size: (200, 50)
+            spacing: 10
+            Button:
+                text: "Guardar"
+                background_color: 0, 0, 1, 1
+                background_normal: ''
+                color: 1, 1, 1, 1  # Negro
+                on_press: root.save_profile(nombre.text, apellido.text, direccion.text, contactos.text)
+                disabled: True
+                id: save_button
+            Button:
+                text: "Editar"
+                background_color: 0, 0, 1, 1
+                background_normal: ''
+                color: 1, 1, 1, 1  # Negro
+                on_press: root.enable_editing()
+        Label:
+            id: profile_message
+            text: ""
+        Button:
+            text: "Volver al Menú"
+            background_color: 0, 0, 1, 1
+            background_normal: ''
+            color: 1, 1, 1, 1  # negro
+            size_hint: (None, None)
+            size: (100, 50)
+            on_press: app.root.current = "menu"
+
+
+
+<AlarmsScreen>:
+    on_enter: root.load_alarms()
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Alarmas"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        ScrollView:
+            BoxLayout:
+                id: alarms_list
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+                padding: 10
+        Button:
+            text: "+Agregar Alarma"
+            font_size: 20
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: 200, 50
+            on_press: app.root.current = "addAlarm"
+        Button:
+            text: "Volver al Menú"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # negro
+            size_hint: (None, None)
+            size: (100, 50)
+            on_press: app.root.current = "menu"
+
+<AddAlarmScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1 #blanco
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Nueva Alarma"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        TextInput:
+            id: medicamento
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Medicamento: "
+        TextInput:
+            id: hora
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Hora: 00:00"
+        TextInput:
+            id: frecuencia
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Frecuencia 00:00"
+        TextInput:
+            id: dosis
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Dosis"
+        Button:
+            text: "Guardar"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: (200, 50)
+            on_press: root.save_alarm(medicamento.text, hora.text, frecuencia.text, dosis.text)
+        Button:
+            text: "Volver"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: (200, 50)
+            on_press: app.root.current = "alarms"
+
+
+<TurnsScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Turnos"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        ScrollView:
+            GridLayout:
+                id: turns_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+        
+        Button:
+            text: "+Agregar Turno"
+            font_size: 20
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: 200, 50
+            on_press: app.root.current = "addTurn"
+        Button:
+            text: "Volver al Menú"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # negro
+            size_hint: (None, None)
+            size: (100, 50)
+            on_press: app.root.current = "menu"
+
+<AddTurnScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1 #blanco
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Nuevo Turno"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        TextInput:
+            id: fecha
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Fecha (DD/MM)"
+        TextInput:
+            id: hora
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Hora"
+        TextInput:
+            id: especialidad
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Dirección"
+            
+        Button:
+            text: "Guardar Turno"
+            font_size: 20
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: 200, 50
+            on_press: root.save_turn(fecha.text, hora.text, especialidad.text)
+            
+            
+        Button:
+            text: "Volver"
+            font_size: 20
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: 200, 50
+            on_press: root.manager.current = 'turns'
+            
+            
+
+
+<MyDoctorScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'fondo3.jpg'
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Mi Médico"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        Button:
+            text: "+Agregar"
+            font_size: 20
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: 200, 50
+            on_press: app.root.current = "addDoctor"
+        Button:
+            text: "Volver al Menú"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # negro
+            size_hint: (None, None)
+            size: (100, 50)
+            on_press: app.root.current = "menu"
+
+<AddDoctorScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1 #blanco
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: [10, 50, 10, 10]
+        spacing: 15
+        Label:
+            text: "Añadir Médico"
+            font_size: 40
+            color: 0, 0, 0, 1  # Negro
+        TextInput:
+            id: nombre
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Nombre"
+        TextInput:
+            id: direccion
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Dirección"
+        TextInput:
+            id: 123
+            background_color: 0.678, 0.847, 0.902, 1
+            font_size: 20
+            hint_text: "Numero Telefónico"
+        Button:
+            text: "Guardar"
+            background_color: 0, 0, 1, 1
+            background_normal: ''  
+            color: 1, 1, 1, 1  # Negro
+            size_hint: None, None
+            size: (200, 50)
+            on_press: app.root.current = "mydoctor"
